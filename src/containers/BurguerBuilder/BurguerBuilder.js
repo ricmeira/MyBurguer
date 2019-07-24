@@ -11,10 +11,10 @@ class BurguerBuilder extends Component{
 
     state = {
         ingredients: {
-            salad: 1,
-            bacon: 1,
-            chesse: 2,
-            meat: 2
+            salad: 0,
+            bacon: 2,
+            chesse: 0,
+            meat: 0
         }
     }
 
