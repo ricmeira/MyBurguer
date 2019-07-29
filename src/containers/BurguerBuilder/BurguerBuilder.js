@@ -106,6 +106,7 @@ class BurguerBuilder extends Component{
                 >
                     <OrderSummary 
                         purchaseCancelled={this.purchaseCancelHandler}
+                        price={this.state.totalPrice}
                         purchaseContinued={this.purchaseContinueHandler}
                         ingredients={this.state.ingredients}
                     />
