@@ -102,8 +102,7 @@ class BurguerBuilder extends Component{
             <Auxiliary>
                 <Modal 
                     show={this.state.purchasing}
-                    modalClosed={this.purchaseCancelHandler}
-                >
+                    modalClosed={this.purchaseCancelHandler}>
                     <OrderSummary 
                         purchaseCancelled={this.purchaseCancelHandler}
                         price={this.state.totalPrice}
