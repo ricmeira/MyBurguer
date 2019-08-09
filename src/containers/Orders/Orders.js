@@ -14,7 +14,7 @@ class Orders extends Component {
         axios.get('/orders.json').then(response => {
             const fetchedOrders = [];
             for(let key in response.data) {
-                fetchedOrders.push({...res.data[key], id: key});
+                fetchedOrders.push({...response.data[key], id: key});
             }
             this.setState({loading: false, orders: fetchedOrders})
         }).catch(error => {
@@ -25,8 +25,7 @@ class Orders extends Component {
     render () {
         return (
             <div>
-                <Order />
-                <Order />
+                {this.state.orders.map(order => {return <Order key={order.id} ingredients={order.ingredients} price={order.price}/>})}
             </div>
         );
     }
