@@ -9,7 +9,7 @@ import OrderSummary from '../../components/Burguer/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
-import * as actionTypes from '../../store/actions';
+import * as burguerBuilderActions from '../../store/actions/index';
 
 class BurguerBuilder extends Component{
     /*constructor(props) {
@@ -112,13 +112,14 @@ const mapStateToProps = state => {
     return {
         ings: state.ingredients,
         price: state.totalPrice
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: (ingredient) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingredient}),
-        onIngredientRemoved: (ingredient) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingredient}),
-    }
-}
+        onIngredientAdded: (ingredient) => dispatch(burguerBuilderActions.addIngredient(ingredient)),
+        onIngredientRemoved: (ingredient) => dispatch(burguerBuilderActions.removeIngredient(ingredient))
+    };
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurguerBuilder, axios));
