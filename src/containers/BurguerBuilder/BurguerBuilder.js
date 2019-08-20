@@ -21,6 +21,10 @@ class BurguerBuilder extends Component{
         purchasing: false
     }
 
+    componentDidMount () {
+        this.props.onInitIngredients();
+    }
+
     updatePurchaseState(ingredients){
         const sum = Object.keys(ingredients)
         .map(igKey => {
@@ -55,7 +59,7 @@ class BurguerBuilder extends Component{
 
         let orderSummary = null;
 
-        let burguer = this.state.error ? <p>Ingredients can not be loaded</p> : <Spinner />;
+        let burguer = this.props.error ? <p>Ingredients can not be loaded</p> : <Spinner />;
 
         if(this.props.ings) {
             burguer = (
@@ -97,14 +101,16 @@ class BurguerBuilder extends Component{
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
-        price: state.totalPrice
+        price: state.totalPrice,
+        error: state.error
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         onIngredientAdded: (ingredient) => dispatch(burguerBuilderActions.addIngredient(ingredient)),
-        onIngredientRemoved: (ingredient) => dispatch(burguerBuilderActions.removeIngredient(ingredient))
+        onIngredientRemoved: (ingredient) => dispatch(burguerBuilderActions.removeIngredient(ingredient)),
+        onInitIngredients: () => dispatch(burguerBuilderActions.initIngredients())
     };
 };
 
