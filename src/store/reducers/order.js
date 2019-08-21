@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-    switch (action.toye) {
+    switch (action.type) {
         case actionTypes.PURCHASE_BURGUER_START:
             return {
                 ...state,
