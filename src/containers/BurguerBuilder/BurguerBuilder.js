@@ -9,7 +9,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burguer/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as burguerBuilderActions from '../../store/actions/index';
+import * as actions from '../../store/actions/index';
 
 class BurguerBuilder extends Component{
     /*constructor(props) {
@@ -45,7 +45,7 @@ class BurguerBuilder extends Component{
     }
 
     purchaseContinueHandler = () => {
-
+        this.props.onInitPurchase();
         this.props.history.push('/checkout');
     }
 
@@ -108,9 +108,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: (ingredient) => dispatch(burguerBuilderActions.addIngredient(ingredient)),
-        onIngredientRemoved: (ingredient) => dispatch(burguerBuilderActions.removeIngredient(ingredient)),
-        onInitIngredients: () => dispatch(burguerBuilderActions.initIngredients())
+        onIngredientAdded: (ingredient) => dispatch(actions.addIngredient(ingredient)),
+        onIngredientRemoved: (ingredient) => dispatch(actions.removeIngredient(ingredient)),
+        onInitIngredients: () => dispatch(actions.initIngredients()),
+        onInitPurchase: () => dispatch(actions.purchaseInit())
     };
 };
 
