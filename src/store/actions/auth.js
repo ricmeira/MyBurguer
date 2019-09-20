@@ -30,7 +30,7 @@ export const auth = (email, password, isSignup) => {
             password: password,
             returnSecureToken: true
         };
-        const key= '';
+        const key= 'AIzaSyCoU9EeSzAAlu9YnIZZDbMLAx1s5W8p5rE';
         let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${key}`;
         if(!isSignup) {
          url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${key}`;
@@ -42,8 +42,7 @@ export const auth = (email, password, isSignup) => {
             dispatch(authSuccess(response.data.idToken, response.data.localId));
         })
         .catch(err => {
-            console.log(err);
-            dispatch(authFail())
+            dispatch(authFail(err.response.data.error));
         });
     };
 }
