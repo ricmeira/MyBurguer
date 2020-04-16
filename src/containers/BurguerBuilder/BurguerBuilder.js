@@ -41,6 +41,7 @@ class BurguerBuilder extends Component{
             this.setState({purchasing: true});
         }
         else {
+            this.props.onSetAuthRedirectPath('/checkout');
             this.props.history.push('/auth');
         }
     }
@@ -115,10 +116,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: (ingredient) => dispatch(actions.addIngredient(ingredient)),
-        onIngredientRemoved: (ingredient) => dispatch(actions.removeIngredient(ingredient)),
+        onIngredientAdded: ingredient => dispatch(actions.addIngredient(ingredient)),
+        onIngredientRemoved: ingredient => dispatch(actions.removeIngredient(ingredient)),
         onInitIngredients: () => dispatch(actions.initIngredients()),
-        onInitPurchase: () => dispatch(actions.purchaseInit())
+        onInitPurchase: () => dispatch(actions.purchaseInit()),
+        onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path)),
     };
 };
 
