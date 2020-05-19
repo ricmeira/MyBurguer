@@ -10,12 +10,22 @@ export const logout = () => {
     }
 }
 
+export const logoutSucceed = () => {
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    }
+}
+
 export const checkAuthTimeout = ( expirationTime ) => {
-    return dispatch => {
+    return {
+        type: actionTypes.AUTH_CHECK_TIMEOUT,
+        expirationTime
+    }
+    /* return dispatch => {
         setTimeout(() => {
             dispatch(logout());
         }, expirationTime * 1000);
-    }
+    } */
 }
 
 export const authStart = () => {
