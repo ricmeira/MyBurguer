@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
+// import axios from 'axios';
 
 export const logout = () => {
     // localStorage.removeItem('token');
@@ -50,7 +50,13 @@ export const authFail = ( error ) => {
 };
 
 export const auth = (email, password, isSignup) => {
-    return dispatch => {
+    return {
+        type: actionTypes.AUTH_USER,
+        email,
+        password,
+        isSignup
+    };
+    /* return dispatch => {
         dispatch(authStart());
         const authData = {
             email: email,
@@ -75,7 +81,7 @@ export const auth = (email, password, isSignup) => {
         .catch(err => {
             dispatch(authFail(err.response.data.error));
         });
-    };
+    }; */
 }
 
 export const setAuthRedirectPath = path => {
