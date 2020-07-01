@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import axios from '../../axios-orders';
 import Burguer from '../../components/Burguer/Burger';
@@ -12,10 +12,22 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 
 const BurguerBuilder = ({
-    onInitIngredients, isAuth, onSetAuthRedirectPath, history,
-    onInitPurchase, ings, error, price, onIngredientAdded, onIngredientRemoved
+    history
 }) => {
     const [ purchasing, setIsPurchasing ] = useState(false);
+
+    const dispatch = useDispatch();
+
+    const ings = useSelector( state =>  state.burguerBuilder.ingredients );
+    const price = useSelector( state => state.burguerBuilder.totalPrice );
+    const error = useSelector( state => state.burguerBuilder.error );
+    const isAuth = useSelector( state => state.auth.token !== null );
+
+    const onIngredientAdded = ingredient => dispatch(actions.addIngredient(ingredient));
+    const onIngredientRemoved = ingredient => dispatch(actions.removeIngredient(ingredient));
+    const onInitIngredients = useCallback(() => dispatch(actions.initIngredients()), [ dispatch ]);
+    const onInitPurchase = () => dispatch(actions.purchaseInit());
+    const onSetAuthRedirectPath = path => dispatch(actions.setAuthRedirectPath(path));
 
     useEffect(() => {
         onInitIngredients();
@@ -99,23 +111,4 @@ const BurguerBuilder = ({
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        ings: state.burguerBuilder.ingredients,
-        price: state.burguerBuilder.totalPrice,
-        error: state.burguerBuilder.error,
-        isAuth: state.auth.token !== null,
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onIngredientAdded: ingredient => dispatch(actions.addIngredient(ingredient)),
-        onIngredientRemoved: ingredient => dispatch(actions.removeIngredient(ingredient)),
-        onInitIngredients: () => dispatch(actions.initIngredients()),
-        onInitPurchase: () => dispatch(actions.purchaseInit()),
-        onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path)),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurguerBuilder, axios));
+export default (withErrorHandler(BurguerBuilder, axios));
